@@ -52,7 +52,7 @@ int SysWrite(char* buffer, int size, OpenFileId id)
     return kernel->fileSystem->WriteAFile(buffer, size, id);
 }
 
-OpenFildId SysClose(OpenFileId id)
+OpenFileId SysClose(OpenFileId id)
 {
     return kernel->fileSystem->CloseAFile(id);
 }

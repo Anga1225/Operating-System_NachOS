@@ -114,9 +114,9 @@ void ExceptionHandler(ExceptionType which) {
                     ASSERTNOTREACHED();
                     break;
                 case SC_Read:
-                    val = kernel->machine->ReadRegister(4);
                     {
-                    char *buffer = &(kernel->machine->mainMemory[val]);
+                    int bufferMemAddr = kernel->machine->ReadRegister(4);
+                    char *buffer = &(kernel->machine->mainMemory[bufferMemAddr]);
                     int size = kernel->machine->ReadRegister(5);
                     OpenFileId id  = kernel->machine->ReadRegister(6);
 
@@ -130,11 +130,12 @@ void ExceptionHandler(ExceptionType which) {
                     ASSERTNOTREACHED();
                     break;
                 case SC_Write:
-                    val = kernel->machine->ReadRegister(4);
                     {
-                    char *buffer = &(kernel->machine->mainMemory[val]);
+                    int bufferMemAddr = kernel->machine->ReadRegister(4);
+                    char *buffer = &(kernel->machine->mainMemory[bufferMemAddr]);
                     int size = kernel->machine->ReadRegister(5);
-                    OpenFileId id = kernel->machine->ReadRegister(6);
+                    int id = kernel->machine->ReadRegister(6);
+
                     int byteWrite = SysWrite(buffer, size, id);  // TODO: implement SysWrite
                     kernel->machine->WriteRegister(2, byteWrite);  // write byteWrite back to r2 register
                     }
